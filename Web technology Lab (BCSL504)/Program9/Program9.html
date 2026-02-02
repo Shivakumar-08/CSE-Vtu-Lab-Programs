@@ -1,0 +1,83 @@
+<!-- Develop jQuery script (with HTML/CSS) for: 
+a. Appends the content at the end of the existing paragraph and list. 
+b. Change the state of the element with CSS style using animate() method 
+c. Change the color of any div that is animated.  -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>jQuery Task Example</title>
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #eef;
+        padding: 30px;
+        text-align: center;
+      }
+      p,
+      ul {
+        font-size: 18px;
+        color: #333;
+      }
+      ul {
+        list-style-type: square;
+        text-align: left;
+        width: 300px;
+        margin: 0 auto 20px auto;
+      }
+      #animateBox {
+        width: 100px;
+        height: 100px;
+        background-color: #4caf50;
+        margin: 20px auto;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+      }
+      button {
+        margin: 10px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>jQuery Task Example</h2>
+    <p id="myPara">This is a paragraph.</p>
+    <ul id="myList">
+      <li>Item 1</li>
+      <li>Item 2</li>
+    </ul>
+    <button id="appendBtn">Append Content</button>
+    <button id="animateBtn">Animate Box</button>
+    <div id="animateBox"></div>
+    <!-- jQuery Script -->
+    <script>
+      $(document).ready(function () {
+        // a. Append content
+        $("#appendBtn").click(function () {
+          $("#myPara").append(" More text has been added.");
+          $("#myList").append("<li>New List Item</li>");
+        });
+        // b & c. Animate + change color
+        $("#animateBtn").click(function () {
+          $("#animateBox").animate(
+            {
+              width: "200px",
+              height: "200px",
+              marginLeft: "50px",
+            },
+            1000,
+            function () {
+              // c. Change background color after animation
+              $(this).css("background-color", "#ff5722");
+            }
+          );
+        });
+      });
+    </script>
+  </body>
+</html>

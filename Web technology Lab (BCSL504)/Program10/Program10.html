@@ -1,0 +1,113 @@
+<!-- Develop a JavaScript program with Ajax (with HTML/CSS) for: 
+a. Use ajax() method (without Jquery) to add the text content from the text file by sending 
+ajax request. 
+b. Use ajax() method (with Jquery) to add the text content from the text file by sending 
+ajax request. 
+c. Illustrate the use of getJSON() method in jQuery 
+d. Illustrate the use of parseJSON() method to display JSON values.  -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>AJAX Examples</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f5faff;
+        padding: 30px;
+        text-align: center;
+      }
+      .box {
+        border: 1px solid #aaa;
+        background-color: #fff;
+        margin: 15px auto;
+        padding: 20px;
+        width: 60%;
+        box-shadow: 0 0 8px #ccc;
+        border-radius: 10px;
+      }
+      button {
+        margin: 10px;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      pre {
+        text-align: left;
+        background: #eee;
+        padding: 10px;
+        overflow: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>AJAX Examples (Vanilla JS & jQuery)</h2>
+    <!-- a. Vanilla JS AJAX -->
+    <div class="box">
+      <h3>a. AJAX without jQuery</h3>
+      <button onclick="loadContentVanilla()">Load Text</button>
+      <div id="vanillaOutput"></div>
+    </div>
+    <!-- b. jQuery AJAX -->
+    <div class="box">
+      <h3>b. AJAX with jQuery</h3>
+      <button id="loadJqueryText">Load Text</button>
+      <div id="jqueryOutput"></div>
+    </div>
+    <!-- c. jQuery getJSON -->
+    <div class="box">
+      <h3>c. getJSON() Example</h3>
+      <button id="loadJSON">Load JSON</button>
+      <pre id="jsonOutput"></pre>
+    </div>
+    <!-- d. parseJSON() Example -->
+    <div class="box">
+      <h3>d. parseJSON() Example</h3>
+      <button id="parseJsonBtn">Parse JSON</button>
+      <div id="parseJsonOutput"></div>
+    </div>
+    <script>
+      // a. AJAX using vanilla JS
+      function loadContentVanilla() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "content.txt", true);
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            document.getElementById("vanillaOutput").innerText =
+              xhr.responseText;
+          }
+        };
+        xhr.send();
+      }
+      // b. AJAX using jQuery
+      $("#loadJqueryText").click(function () {
+        $.ajax({
+          url: "content.txt",
+          success: function (data) {
+            $("#jqueryOutput").text(data);
+          },
+        });
+      });
+      // c. getJSON() usage
+      $("#loadJSON").click(function () {
+        $.getJSON("data.json", function (data) {
+          let output = "";
+          $.each(data.students, function (i, student) {
+            output += `Name: ${student.name}, Age: ${student.age}, Course: 
+            ${student.course}\n`;
+          });
+          $("#jsonOutput").text(output);
+        });
+      });
+      // d. parseJSON() usage
+      $("#parseJsonBtn").click(function () {
+        var jsonString = '{"name":"John","age":22,"course":"BCA"}';
+        var obj = JSON.parse(jsonString); // or $.parseJSON(jsonString);
+        var output = `Name: ${obj.name}<br>Age: ${obj.age}<br>Course: ${obj.course}`;
+        $("#parseJsonOutput").html(output);
+      });
+    </script>
+  </body>
+</html>
